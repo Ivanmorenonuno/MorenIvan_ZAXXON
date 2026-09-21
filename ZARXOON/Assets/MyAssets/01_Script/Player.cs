@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     // ==============================
-    // VARIABLES DEL CÓDIGO 01
+    // VARIABLES DEL CODIGO 
     // ==============================
 
     public float moveSpeed;
@@ -20,11 +20,18 @@ public class PlayerManager : MonoBehaviour
     float rotationSpeed = 0.5f;
     float rotation;
 
+    //Rotacion suavizadad
+    float maxRotation = 45f;
+    [SerializeField] float smoothTime = 0.3f;
+    private Vector3 velocity = Vector3.zero;
+    Vector3 currentRot;
+
     // Flip del personaje
     public float flipSpeed;
 
     // Contador de segundos
     float timeElapsed;
+
 
     // Variables serializadas
     [SerializeField] int ciclos = 10;
@@ -98,6 +105,12 @@ public class PlayerManager : MonoBehaviour
 
         // Rotación del personaje
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime * rotation * 360f);
+
+        Vector3 vectorRotZ = Vector3.forward * -60f * moveX;
+        Vector3 vectorRotX = Vector3.right * -30f * moveY;
+        Vector3 vectorRot = vectorRotX + vectorRotZ;
+        currentRot = Vector3.SmoothDamp(currentRot, vectorRot, ref velocity, smoothTime);
+        transform.eulerAngles = currentRot;
     }
 
 
@@ -111,12 +124,11 @@ public class PlayerManager : MonoBehaviour
         if(CheckLimitsHorizontal())
         {
         transform.Translate(Vector3.right * desplSpeed * Time.deltaTime * moveX);
-
         }
 
+        // Movimiento vertical
         if (CheckLimitsVertical())
         {
-            // Movimiento vertical
             transform.Translate(Vector3.up * desplSpeed * Time.deltaTime * moveY);
         }
     }
@@ -132,15 +144,12 @@ public class PlayerManager : MonoBehaviour
 
         
 
-        // Si estamos en el límite derecho
-        // e intentamos seguir moviéndonos hacia la derecha
+        // Si estamos en el límite horizontal
         if (posX >= limitsX && moveX > 0)
         {
             return false;
         }
 
-        // Si estamos en el límite izquierdo
-        // e intentamos seguir moviéndonos hacia la izquierda
         if (posX <= -limitsX && moveX < 0)
         {
             return false;
@@ -156,6 +165,7 @@ public class PlayerManager : MonoBehaviour
         {
             return false;
         }
+
         if (posY <= -limitsY && moveY < 0)
         {
             return false;
