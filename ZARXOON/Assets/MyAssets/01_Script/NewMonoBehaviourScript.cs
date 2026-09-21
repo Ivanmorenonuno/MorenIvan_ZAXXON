@@ -23,11 +23,6 @@ public class PlayerManager : MonoBehaviour
     // Flip del personaje
     public float flipSpeed;
 
-
-    // ==============================
-    // VARIABLES DEL CÓDIGO 02
-    // ==============================
-
     // Contador de segundos
     float timeElapsed;
 
@@ -36,7 +31,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] int lives = 3;
 
     // Límite de desplazamiento en X
-    [SerializeField] float limits = 10f;
+    [SerializeField] float limitsX = 10f;
+
+    // Límite de desplazamiento en Y
+    [SerializeField] float limitsY = 5f;
 
 
     // ==============================
@@ -52,25 +50,19 @@ public class PlayerManager : MonoBehaviour
         inputActions.Player.Fire.started += _ => Shoot();
 
         // Movimiento horizontal
-        inputActions.Player.Movex.performed += ctx =>
-            moveX = ctx.ReadValue<float>();
+        inputActions.Player.Movex.performed += ctx => moveX = ctx.ReadValue<float>();
 
-        inputActions.Player.Movex.canceled += _ =>
-            moveX = 0f;
+        inputActions.Player.Movex.canceled += _ => moveX = 0f;
 
         // Movimiento vertical
-        inputActions.Player.Movey.performed += ctx =>
-            moveY = ctx.ReadValue<float>();
+        inputActions.Player.Movey.performed += ctx => moveY = ctx.ReadValue<float>();
 
-        inputActions.Player.Movey.canceled += _ =>
-            moveY = 0f;
+        inputActions.Player.Movey.canceled += _ => moveY = 0f;
 
         // Rotación
-        inputActions.Player.Rotar.performed += ctx =>
-            rotation = ctx.ReadValue<float>();
+        inputActions.Player.Rotar.performed += ctx => rotation = ctx.ReadValue<float>();
 
-        inputActions.Player.Rotar.canceled += _ =>
-            rotation = 0f;
+        inputActions.Player.Rotar.canceled += _ => rotation = 0f;
 
         // Flip
         inputActions.Player.FlipR.started += _ => Flip();
@@ -79,7 +71,6 @@ public class PlayerManager : MonoBehaviour
         // Código 02
         lives = 3;
     }
-
 
     // ==============================
     // START
@@ -92,8 +83,6 @@ public class PlayerManager : MonoBehaviour
 
         flipSpeed = 100f;
 
-        // Ejecutamos el ejemplo de bucles
-        EjecutarBucle();
     }
 
 
@@ -103,31 +92,12 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        // Contador de tiempo
-        Contador();
+     
+        MovePlayer();
 
-        // Solo nos movemos si estamos dentro del límite
-        if (CheckLimits())
-        {
-            MovePlayer();
-        }
-
-        // Movimiento vertical
-        transform.Translate(
-            Vector3.up *
-            desplSpeed *
-            Time.deltaTime *
-            moveY
-        );
 
         // Rotación del personaje
-        transform.Rotate(
-            Vector3.forward *
-            rotationSpeed *
-            Time.deltaTime *
-            rotation *
-            360f
-        );
+        transform.Rotate( Vector3.forward * rotationSpeed * Time.deltaTime * rotation * 360f);
     }
 
 
@@ -138,12 +108,19 @@ public class PlayerManager : MonoBehaviour
     void MovePlayer()
     {
         // Movimiento horizontal
+        if(CheckLimitsHorizontal())
+        {
         transform.Translate(
-            Vector3.right *
-            desplSpeed *
-            Time.deltaTime *
-            moveX
-        );
+            Vector3.right * desplSpeed * Time.deltaTime * moveX);
+
+        }
+
+        if (CheckLimitsVertical())
+        {
+            // Movimiento vertical
+            transform.Translate(
+            Vector3.up * desplSpeed * Time.deltaTime * moveY);
+        }
     }
 
 
@@ -151,27 +128,42 @@ public class PlayerManager : MonoBehaviour
     // COMPROBAR LÍMITES
     // ==============================
 
-    bool CheckLimits()
+    bool CheckLimitsHorizontal()
     {
         float posX = transform.position.x;
 
+        
+
         // Si estamos en el límite derecho
         // e intentamos seguir moviéndonos hacia la derecha
-        if (posX >= limits && moveX > 0)
+        if (posX >= limitsX && moveX > 0)
         {
             return false;
         }
 
         // Si estamos en el límite izquierdo
         // e intentamos seguir moviéndonos hacia la izquierda
-        if (posX <= -limits && moveX < 0)
+        if (posX <= -limitsX && moveX < 0)
         {
             return false;
         }
-
         return true;
     }
 
+    bool CheckLimitsVertical()
+    {
+        float posY = transform.position.y;
+        // Si estamos en el límite superior
+        if (posY >= limitsY && moveY > 0)
+        {
+            return false;
+        }
+        if (posY <= -limitsY && moveY < 0)
+        {
+            return false;
+        }
+        return true;
+    }
 
     // ==============================
     // DISPARO
@@ -189,49 +181,8 @@ public class PlayerManager : MonoBehaviour
 
     void Flip()
     {
-        transform.Rotate(
-            0f,
-            0f,
-            -360f * flipSpeed * Time.deltaTime
-        );
+        transform.Rotate(0f,0f,-360f * flipSpeed * Time.deltaTime);
     }
-
-
-    // ==============================
-    // CONTADOR
-    // ==============================
-
-    void Contador()
-    {
-        timeElapsed = Time.time;
-
-        float timeRounded =
-            Mathf.Round(timeElapsed * 100) / 100f;
-
-        print("Tiempo transcurrido: " + timeRounded);
-    }
-
-
-    // ==============================
-    // EJEMPLO DE BUCLES
-    // ==============================
-
-    void EjecutarBucle()
-    {
-        int n = 0;
-
-        while (n < 10)
-        {
-            n++;
-            // print(n);
-        }
-
-        for (int i = 0; i < ciclos; i++)
-        {
-            print(i);
-        }
-    }
-
 
     // ==============================
     // INPUT SYSTEM
