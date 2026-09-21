@@ -97,7 +97,7 @@ public class PlayerManager : MonoBehaviour
 
 
         // Rotación del personaje
-        transform.Rotate( Vector3.forward * rotationSpeed * Time.deltaTime * rotation * 360f);
+        transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime * rotation * 360f);
     }
 
 
@@ -110,16 +110,14 @@ public class PlayerManager : MonoBehaviour
         // Movimiento horizontal
         if(CheckLimitsHorizontal())
         {
-        transform.Translate(
-            Vector3.right * desplSpeed * Time.deltaTime * moveX);
+        transform.Translate(Vector3.right * desplSpeed * Time.deltaTime * moveX);
 
         }
 
         if (CheckLimitsVertical())
         {
             // Movimiento vertical
-            transform.Translate(
-            Vector3.up * desplSpeed * Time.deltaTime * moveY);
+            transform.Translate(Vector3.up * desplSpeed * Time.deltaTime * moveY);
         }
     }
 
