@@ -71,11 +71,7 @@ public class PlayerManager : MonoBehaviour
 
         inputActions.Player.Rotar.canceled += _ => rotation = 0f;
 
-        // Flip
-        inputActions.Player.FlipR.started += _ => Flip();
-
-
-        // Código 02
+        // Limite de vidas
         lives = 3;
 
         // Velocidad de movimiento
@@ -90,9 +86,6 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
        
-
-        flipSpeed = 100f;
-
     }
 
 
@@ -109,8 +102,8 @@ public class PlayerManager : MonoBehaviour
         // Rotación del personaje
         //transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime * rotation * 360f);
 
-        Vector3 vectorRotZ = Vector3.forward * -60f * moveX;
-        Vector3 vectorRotX = Vector3.right * -30f * moveY;
+        Vector3 vectorRotZ = Vector3.forward * -45f * moveX;
+        Vector3 vectorRotX = Vector3.right * -20f * moveY;
         Vector3 vectorRot = vectorRotX + vectorRotZ;
         currentRot = Vector3.SmoothDamp(currentRot, vectorRot, ref velocity, smoothTime);
         transform.eulerAngles = currentRot;
@@ -126,13 +119,13 @@ public class PlayerManager : MonoBehaviour
         // Movimiento horizontal
         if(CheckLimitsHorizontal())
         {
-        transform.Translate(Vector3.right * desplSpeed * Time.deltaTime * moveX);
+        transform.Translate(Vector3.right * desplSpeed * Time.deltaTime * moveX,Space.World);
         }
 
         // Movimiento vertical
         if (CheckLimitsVertical())
         {
-            transform.Translate(Vector3.up * desplSpeed * Time.deltaTime * moveY);
+            transform.Translate(Vector3.up * desplSpeed * Time.deltaTime * moveY,Space.World);
         }
     }
 
@@ -183,16 +176,6 @@ public class PlayerManager : MonoBehaviour
     void Shoot()
     {
         print("POOOM");
-    }
-
-
-    // ==============================
-    // FLIP
-    // ==============================
-
-    void Flip()
-    {
-        transform.Rotate(0f,0f,-360f * flipSpeed * Time.deltaTime);
     }
 
     // ==============================
