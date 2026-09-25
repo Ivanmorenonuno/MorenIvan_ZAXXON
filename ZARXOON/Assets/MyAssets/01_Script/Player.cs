@@ -75,8 +75,8 @@ public class PlayerManager : MonoBehaviour
         lives = 3;
 
         // Velocidad de movimiento
-        moveSpeed = 30f;
-        desplSpeed = 5f;
+        moveSpeed = 50f;
+        desplSpeed = 10f;
     }
 
     // ==============================
