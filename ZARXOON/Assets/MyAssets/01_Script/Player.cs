@@ -77,6 +77,10 @@ public class PlayerManager : MonoBehaviour
 
         // Código 02
         lives = 3;
+
+        // Velocidad de movimiento
+        moveSpeed = 30f;
+        desplSpeed = 5f;
     }
 
     // ==============================
@@ -85,8 +89,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        moveSpeed = 30f;
-        desplSpeed = 5f;
+       
 
         flipSpeed = 100f;
 
@@ -104,7 +107,7 @@ public class PlayerManager : MonoBehaviour
 
 
         // Rotación del personaje
-        transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime * rotation * 360f);
+        //transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime * rotation * 360f);
 
         Vector3 vectorRotZ = Vector3.forward * -60f * moveX;
         Vector3 vectorRotX = Vector3.right * -30f * moveY;
