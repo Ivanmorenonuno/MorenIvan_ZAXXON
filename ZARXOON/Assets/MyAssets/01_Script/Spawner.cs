@@ -13,8 +13,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] float interval = 0.5f;
 
     [Header("Distancia")]
-    [SerializeField] float distanciaInicial = -600f;
-    [SerializeField] float distanciaEntreEnemigos = 10f;
+    [SerializeField] float distanciaInicial = -700f;
+    [SerializeField] float distanciaEntreEnemigos = 50f;
 
     void Start()
     {
@@ -30,20 +30,19 @@ public class Spawner : MonoBehaviour
             // Crear enemigo
             SacarEnemigo(distanciaActual);
 
-            // Si todavía no hemos llegado a 0,
-            // acercamos el siguiente enemigo
-            if (distanciaActual < 0)
+            // Acercarnos progresivamente al spawner
+            if (distanciaActual < 0f)
             {
-                distanciaActual -= distanciaEntreEnemigos;
+                distanciaActual += distanciaEntreEnemigos;
 
-                // Evitamos que se pase de 0
-                if (distanciaActual > 0)
+                // Evitamos sobrepasar el spawner
+                if (distanciaActual > 0f)
                 {
-                    distanciaActual = 0;
+                    distanciaActual = 0f;
                 }
             }
 
-            // Esperar hasta el siguiente spawn
+            // Esperar hasta el siguiente enemigo
             yield return new WaitForSeconds(interval);
         }
     }
@@ -75,6 +74,7 @@ public class Spawner : MonoBehaviour
         );
     }
 }
+
 
 
 
