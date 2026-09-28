@@ -148,7 +148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284be6eb319175d42b7b942ca52a67f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
-  EnemyPrefab: {fileID: 2641962889256589136, guid: d21212d0676827949aa545eff10d614c, type: 3}
+  EnemyPrefab: {fileID: 2017168194}
+  maxpositionX: 20
+  maxpositionY: 10
+  interval: 0.05
+  distanciaInicial: -800
+  distanciaEntreEnemigos: 10
 --- !u!4 &29537676
 Transform:
   m_ObjectHideFlags: 0
@@ -158,7 +163,7 @@ Transform:
   m_GameObject: {fileID: 29537674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 150}
+  m_LocalPosition: {x: 0, y: 0, z: 1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -669,6 +674,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d21212d0676827949aa545eff10d614c, type: 3}
+--- !u!1 &2017168194 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2641962889256589136, guid: d21212d0676827949aa545eff10d614c, type: 3}
+  m_PrefabInstance: {fileID: 1029129032}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
