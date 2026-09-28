@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] PlayerManager Player;
 
+    [SerializeField] float distanciaDesaparicion = -1200f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,5 +21,11 @@ public class Enemy : MonoBehaviour
     {
         speed = Player.moveSpeed+ MySpeed;
         transform.Translate(Vector3.back * Time.deltaTime * speed); 
+
+        if (transform.position.z < distanciaDesaparicion)
+        {
+            Destroy(gameObject);
+        }
+
     }
 }
