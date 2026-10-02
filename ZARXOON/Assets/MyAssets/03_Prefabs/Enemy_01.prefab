@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4115993354841035639}
-  - component: {fileID: 6498937078487230363}
+  - component: {fileID: 3343313303781857467}
   m_Layer: 0
   m_Name: Enemy_01
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 82610150535160460}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6498937078487230363
+--- !u!114 &3343313303781857467
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +44,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 530f872e2b6994444a6896201e4e6e6d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy02
+  speed: 0
   Player: {fileID: 0}
   distanciaDesaparicion: -20
 --- !u!1 &4032246065715615518
