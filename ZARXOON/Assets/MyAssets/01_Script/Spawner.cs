@@ -4,7 +4,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] GameObject EnemyPrefab;
-
+    
     [Header("Movimiento del Spawner")]
     [SerializeField] float maxpositionX = 20f;
     [SerializeField] float maxpositionY = 10f;
@@ -49,9 +49,10 @@ public class Spawner : MonoBehaviour
 
     void SacarEnemigo(float offsetZ)
     {
+        // Generar una posición aleatoria dentro de los límites
         float posX = Random.Range(-maxpositionX, maxpositionX);
         float posY = Random.Range(-maxpositionY, maxpositionY);
-
+        
         Vector3 spawnPosition = new Vector3(
             posX,
             posY,
@@ -67,6 +68,7 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
+        // Mover el spawner a una posición aleatoria dentro de los límites
         transform.position = new Vector3(
             Random.Range(-maxpositionX, maxpositionX),
             Random.Range(-maxpositionY, maxpositionY),

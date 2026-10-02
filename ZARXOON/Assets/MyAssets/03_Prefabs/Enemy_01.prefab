@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   Player: {fileID: 0}
+  distanciaDesaparicion: -20
 --- !u!1 &4032246065715615518
 GameObject:
   m_ObjectHideFlags: 0
